@@ -1,29 +1,32 @@
 #!/usr/bin/env bash
 
-echo -e "Starting initial setup..."
+echo -e "Starting initial setup for Fedora..."
 
-CHEZDIR="/home/test/.local/share/chezmoi"
+CHEZDIR="$HOME/.local/share/chezmoi"
 echo "Input email for bitwarden:"
 read bitemail
 
 # Install ansible python dependencies
-sudo xbps-install -Syu -y
-sudo xbps-install python3 python3-pip ansible -y
-sudo pip install pexpect
+sudo dnf update
+sudo dnf python3 python3-pip ansible cargo -y
+pip install pexpect
+cargo install rbw
 
 # Install ansible extensions
-ansible-galaxy install -r "$CHEZDIR/provision/requirements.yml"
+ansible-galaxy install -r "$CHEZDIR/provision/fedora/ansible/requirements.yml"
 
 # Run setup playbook
-ansible-playbook "$CHEZDIR/provision/setup.yml" -i "$CHEZDIR/provision/hosts" --ask-become-pass
+ansible-playbook "$CHEZDIR/provision/setup.yml" -i "$CHEZDIR/provision/fedora/ansible/hosts" --ask-become-pass
 
+# Add things to path for this script
 export PATH="$PATH:/usr/local/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$PATH:$CHEZDIR/temp_bin"
 
 # Copy jumpstart scripts to temp bin dir and add to path
 mkdir -p "$CHEZDIR/temp_bin"
 cp "$CHEZDIR/home/bin/executable_rbw-get" "$CHEZDIR/temp_bin/rbw-get"
 chmod +x "$CHEZDIR/temp_bin/rbw-get"
-export PATH="$PATH:$CHEZDIR/temp_bin"
 
 # Set bitwarden email
 rbw config set email "$bitemail"
@@ -49,4 +52,3 @@ then
 fi
 
 sudo reboot
-
