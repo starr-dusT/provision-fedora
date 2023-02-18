@@ -16,7 +16,7 @@ cargo install rbw
 ansible-galaxy install -r "$CHEZDIR/provision/fedora/ansible/requirements.yml"
 
 # Run setup playbook
-ansible-playbook "$CHEZDIR/provision/setup.yml" -i "$CHEZDIR/provision/fedora/ansible/hosts" --ask-become-pass
+ansible-playbook "$CHEZDIR/provision/fedora/ansible/setup.yml" -i "$CHEZDIR/provision/fedora/ansible/hosts" --ask-become-pass
 
 # Add things to path for this script
 export PATH="$PATH:/usr/local/bin"

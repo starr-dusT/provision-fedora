@@ -1,16 +1,28 @@
+- name: Enable lazygit copr repo
+  tags: ["once"]
+  community.general.copr:
+    name: atim/lazygit
+    state: enabled
+  become: true
+
 - name: Install development void packages
-  xbps:
+  dnf:
     name:
       - python3 # Python programming language (3.11 series)
       - python3-pip # A tool for installing and managing Python3 packages
       - ripgrep # Fast search tool inspired by ag and grep
-      - fd # Simple, fast and user-friendly alternative to find
+      - fd-find # Simple, fast and user-friendly alternative to find
       - lazygit # Simple terminal UI for git commands
-      - ruby-tmuxinator # Create and manage complex tmux sessions easily
-      - python3-pipenv # Python Development Workflow for Humans
+      - pipenv # Python Development Workflow for Humans
       - python3-devel # Python programming language (3.11 series) - development files
+      - rubygems
     state: present
   become: true
+
+- name: Install tmuxinator gem package
+  gem:
+    name: tmuxinator # Create and manage complex tmux sessions easily
+    state: latest
 
 - name: Install development python packages
   ansible.builtin.pip:

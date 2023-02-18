@@ -17,3 +17,15 @@
     - /usr/share/applications/nvim.desktop
     - /usr/share/applications/syncthing-start.desktop
     - /usr/share/applications/syncthing-ui.desktop
+
+- name: Uninstall desktop bloat 
+  dnf:
+    name:
+      - yelp
+      - gnome-boxes
+      - rhythmbox
+      - gnome-photos
+      - totem
+      - gnome-text-editor
+    state: absent
+  become: true

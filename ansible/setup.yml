@@ -1,8 +1,8 @@
-- name: Ansible playbook to setup void linux
+- name: Ansible playbook to setup fedora linux
   hosts: all
 
   vars_files:
-    - ../home/.chezmoidata.yaml
+    - ../../../home/.chezmoidata.yaml
 
   tasks:
     - import_tasks: tasks/system/_main.yml
@@ -11,4 +11,3 @@
     - import_tasks: tasks/desktop/_main.yml
     - import_tasks: tasks/gaming/_main.yml
     - import_tasks: tasks/engineering/_main.yml
-

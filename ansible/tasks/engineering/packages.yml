@@ -1,5 +1,5 @@
-- name: Install engineering void packages
-  xbps:
+- name: Install engineering fedora packages
+  dnf:
     name:
       - freecad # General purpose 3D CAD modeler
     state: present
