@@ -101,3 +101,7 @@ Remote nb notebooks are added with the following command:
 ```bash
 nb notebooks add <notebook name> https://github.com/starr-dusT/nb <branch>
 ```
+
+## Snapper
+
+...

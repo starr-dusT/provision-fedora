@@ -29,7 +29,6 @@
       - wireguard-tools # Fast, modern, secure vpn tunnel
       - pipewire-codec-aptx # PipeWire Bluetooth aptX codec plugin
       - ansible # Simple deployment, configuration management and execution framework
-      - chezmoi # Manage your dotfiles across multiple machines, securely
       - '@Development tools' # Development tools for Fedora
       - '@virtualization' # Virtualization tools for Fedora
       - trash-cli # Command line interface to the freedesktop.org trashcan
@@ -39,9 +38,11 @@
     state: present
   become: true
 
+- name: Install chezmoi 
+  ansible.builtin.shell: sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin # Manage your dotfiles across multiple machines, securely
+
 - name: Add the flathub flatpak repository remote
-  flatpak_remote:
-    name: flathub
-    state: present
-    flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+  tags: ["once"]
+  shell: |
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
   become: true

@@ -1,32 +1,25 @@
-# Dotfiles
-> My dotfiles... What do you want? 
+# Provision Fedora
+> \*Tips Fedora\*
 
-My personal dotfiles repo. Documentation is pretty spotty. Maybe I'll fix that someday, but I probably won't. 
+Jumpstart scripts to install Fedora with packages and configs I use.
 
 ## Usage
 
-Dotfiles are managed with chezmoi and Ansible (built for Void) is used for the bulk of configuration. 
-
-## Initial Setup
-
-Install Void with BTRFS and run the following commands:
+Install Fedora Workstation with BTRFS and run the following commands:
 
 ```bash
-sudo xbps-install -Syu -y
-sudo xbps-install -S vim git chezmoi -y
+sudo dnf install vim git -y
 git clone https://github.com/starr-dusT/dotfiles ~/.local/share/chezmoi 
 ```
 
 Copy `.chezmoidata.yaml.example` to `.chezmoidata.yaml` and edit with desired settings then run the following commands:
 
 ```bash
-~/.local/share/chezmoi/jumpstart.sh
+~/.local/share/chezmoi/provision/fedora/jumpstart.sh
 ```
-
-After reboot log into window manager and run `linux-monitor`, follow the prompts, reapply chezmoi config, and restart the window manager.
 
 Perform additional setup found in [additional-setup](additional-setup.md)
 
 ## Update Setup
 
-`void-update` command updates the system with ansible. Run `void-update -h` for information on usage.
+`linux-update --fedora` command updates the system with ansible. Run `linux-update -h` for information on usage.

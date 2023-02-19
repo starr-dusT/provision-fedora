@@ -7,21 +7,21 @@ echo "Input email for bitwarden:"
 read bitemail
 
 # Install ansible python dependencies
-sudo dnf update
-sudo dnf python3 python3-pip ansible cargo -y
+sudo dnf update -y
+sudo dnf install python3 python3-pip ansible cargo -y
 pip install pexpect
 cargo install rbw
+
+# Add things to path for this script
+export PATH="$PATH:/usr/local/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$PATH:$CHEZDIR/temp_bin"
 
 # Install ansible extensions
 ansible-galaxy install -r "$CHEZDIR/provision/fedora/ansible/requirements.yml"
 
 # Run setup playbook
 ansible-playbook "$CHEZDIR/provision/fedora/ansible/setup.yml" -i "$CHEZDIR/provision/fedora/ansible/hosts" --ask-become-pass
-
-# Add things to path for this script
-export PATH="$PATH:/usr/local/bin"
-export PATH="$PATH:$HOME/.cargo/bin"
-export PATH="$PATH:$CHEZDIR/temp_bin"
 
 # Copy jumpstart scripts to temp bin dir and add to path
 mkdir -p "$CHEZDIR/temp_bin"
