@@ -1,26 +1,49 @@
 # Additional Setup
 
-The following documents Void setup that wasn't automated with ansible.
+The following documents some Fedora setup that wasn't automated with ansible.
 
-## Radicale and vdirsyncer for contacts/calendar
+## Snapper
 
-[Radicale](https://radicale.org/v3.html) is hosted on my home server to provide
-DAV synced calendars and contacts. [Vdirsyncer](https://github.com/pimutils/vdirsyncer)
-allows for the files to be synced to the linux filesystem for desktop usage
-with [khard](https://github.com/lucc/khard) and [khal](https://github.com/pimutils/khal).
-The config files are auto-populated by chezmoi with credentials from bitwarden
-run the following commands to setup vdirsyncer files:
+Snapper is used to create snapshots with the BTRFS filesystem for root and home
+directories. I'd like to make these snapshots avaible at grub with 
+[grub-btrfs](https://github.com/Antynea/grub-btrfs), but I've found that 
+akmod-nvidia breaks it. Snapper is setup with:
 
 ```bash
-vdirsyncer -c ~/.config/vdirsyncer/config_calendar discover 
-vdirsyncer -c ~/.config/vdirsyncer/config_contacts discover 
-```
+sudo btrfs filesystem label / *FTL ship name*
 
-Files can be later synced with the following commands:
+# Make /var/log subvolume
+sudo mv -v /var/log /var/log-old
+sudo btrfs subvolume create /var/log
+sudo cp -arv /var/log-old/. /var/log/
+sudo restorecon -RFv /var/log
+sudo rm -rvf /var/log-old
 
-```bash
-vdirsyncer -c ~/.config/vdirsyncer/config_calendar sync
-vdirsyncer -c ~/.config/vdirsyncer/config_contacts sync
+# Add /var/log to fstab
+sudo vi /etc/fstab
+# UUID=<drive uuid> /var/log  btrfs subvol=var/log,compress=zstd:1 0 0
+sudo systemctl daemon-reload
+sudo mount -va
+
+# Create snapper configs
+sudo snapper -c root create-config /
+sudo snapper -c home create-config /home
+
+# Allow users to perform snapshots
+sudo snapper -c root set-config ALLOW_USERS=$USER SYNC_ACL=yes
+sudo snapper -c home set-config ALLOW_USERS=$USER SYNC_ACL=yes
+sudo chown -R :$USER /.snapshots
+sudo chown -R :$USER /home/.snapshots
+
+# Add / and /home to fstab
+sudo vi /etc/fstab
+# UUID=<drive uuid> /.snapshots      btrfs subvol=.snapshots,compress=zstd:1 0 0
+# UUID=<drive uuid> /home/.snapshots btrfs subvol=home/.snapshots,compress=zstd:1 0 0
+sudo systemctl daemon-reload
+sudo mount -va
+
+# Show resulting subvolume structure
+sudo btrfs subvolume list /
 ```
 
 ## Wireguard Client
@@ -33,24 +56,6 @@ Wireguard is nice for a home vpn and [pivpn](https://pivpn.io/) makes it easy.
 nmcli connection import type wireguard file <conf file from pivpn>
 ```
 3. Turn on/off from nm-applet
-
-## BTRFS back-ups with btrbk  
-
-[btrbk](https://github.com/digint/btrbk) is used to create snapshots of the 
-root and user volumes. User volumes are backed-up to my home server (Torus),
-but root is only stored locally.
-
-```bash
-sudo btrbk -c ~/.config/btrbk/home_btrbk.conf -v run # snapshot /home/<user> 
-sudo btrbk -c ~/.config/btrbk/root_btrbk.conf -v run # snapshot / 
-```
-
-SSH keypair is used for password-less root ssh for remote back-up. See 
-[ssh setup](https://github.com/digint/btrbk#setting-up-ssh) from the btrbk 
-readme.
-
-anacron is used for daily backups. Copy `home_backup.sh` from the config folder
-to `/etc/cron.daily`.
 
 ## Mount network drives
 
@@ -92,16 +97,8 @@ taskopen).
 ## Lxappearance
 
 My GTK theme is pulled down by chezmoi, but isn't active by default. This can
-be fixed with the lxappearance gui.
+be fixed with the lxappearance gui (for X sessions).
 
-## nb notebooks
-
-Remote nb notebooks are added with the following command:
-
-```bash
-nb notebooks add <notebook name> https://github.com/starr-dusT/nb <branch>
-```
-
-## Snapper
+## Git SSH for personal and work
 
 ...

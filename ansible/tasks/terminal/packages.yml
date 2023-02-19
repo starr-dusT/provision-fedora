@@ -34,5 +34,5 @@
   community.general.cargo:
     name: rbw # This is an unofficial command line client for Bitwarden
 
-- include_tasks: nb.yml # Command line and local web note‑taking, bookmarking, archiving, and knowledge base application
+#- include_tasks: nb.yml # Command line and local web note‑taking, bookmarking, archiving, and knowledge base application
 - include_tasks: taskwarrior-tui.yml # Terminal User Interface (TUI) for Taskwarrior
