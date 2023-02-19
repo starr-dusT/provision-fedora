@@ -1,6 +1,13 @@
 - name: Start and enable syncthing
+  tags: ["once"]
   systemd:
     name: syncthing@{{ user }}
     enabled: true
     state: started 
+  become: true
+
+- name: Set hostname for linux
+  tags: ["once"]
+  shell: >
+    hostnamectl set-hostname {{ hostname }}
   become: true
