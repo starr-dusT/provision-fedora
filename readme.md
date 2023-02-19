@@ -5,7 +5,7 @@ Jumpstart scripts to install Fedora with packages and configs I use.
 
 ## Usage
 
-Install Fedora Workstation with BTRFS and parition as follows
+Install Fedora Workstation with BTRFS and partition:
 
 ```
 1. 512Mb EFI partition at /boot/EFI
