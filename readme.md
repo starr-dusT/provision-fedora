@@ -5,11 +5,19 @@ Jumpstart scripts to install Fedora with packages and configs I use.
 
 ## Usage
 
-Install Fedora Workstation with BTRFS and run the following commands:
+Install Fedora Workstation with BTRFS and parition as follows
+
+```
+1. 512Mb EFI partition at /boot/EFI
+2. BTRFS volume "root" at / that fills rest of drive
+3. BTFS subvolume "home" at /home
+```
+
+Run the following commands:
 
 ```bash
 sudo dnf install vim git -y
-git clone https://github.com/starr-dusT/dotfiles ~/.local/share/chezmoi 
+git clone --recurse-submodules https://github.com/starr-dusT/dotfiles ~/.local/share/chezmoi 
 ```
 
 Copy `.chezmoidata.yaml.example` to `.chezmoidata.yaml` and edit with desired settings then run the following commands:
