@@ -17,5 +17,6 @@
       - org.gimp.GIMP # Create images and edit photographs
       - org.inkscape.Inkscape # Vector Graphics Editor
       - com.github.tchx84.Flatseal # Manage Flatpak permissions
+      - com.mattjakeman.ExtensionManager # A utility for browsing and installing GNOME Shell Extensions
     state: present
   become: true

@@ -55,12 +55,12 @@ Wireguard is nice for a home vpn and [pivpn](https://pivpn.io/) makes it easy.
 ```bash
 nmcli connection import type wireguard file <conf file from pivpn>
 ```
-3. Turn on/off from nm-applet
+3. Use `nm-connection-editor` to disable automatic connection
 
 ## Mount network drives
 
-I find fstab messing about more troubule than it is worth. Mount network drives 
-when needed with the following command:
+I find fstab messing about more troubule than it is worth. Credentials are 
+stored in ~/.smb. Mount network drives when needed with the following command:
 
 ```bash
 linux-mount-<network drive name>
@@ -102,4 +102,25 @@ be fixed with the lxappearance gui (for X sessions).
 
 ## Git SSH for personal and work
 
-...
+- ~/.gitconfig - personal github configuration.
+- ~/devel/work/.gitconfig - work gitlab configuration.
+
+Gitconfig files for SSH git push/pull are automaitcally placed. The only
+additional configuration required is the transfer of SSH keys (see Syncthing
+section).
+
+## Firefox
+
+Transfer the `.mozilla` folder from install-to-install to maintain Firefox
+settings and configurations.
+
+## Dracula colorscheme for gnome terminal
+
+[Dracula](https://draculatheme.com/gnome-terminal) is used for gnome-terminal. 
+Run the following commands to install:
+
+```bash
+git clone https://github.com/dracula/gnome-terminal
+cd gnome-terminal
+./install.sh
+```
