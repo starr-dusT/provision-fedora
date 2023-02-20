@@ -5,7 +5,7 @@ The following documents some Fedora setup that wasn't automated with ansible.
 ## Snapper
 
 Snapper is used to create snapshots with the BTRFS filesystem for root and home
-directories. I'd like to make these snapshots avaible at grub with 
+directories. I'd like to make these snapshots available at grub with 
 [grub-btrfs](https://github.com/Antynea/grub-btrfs), but I've found that 
 akmod-nvidia breaks it. Snapper is setup with:
 
@@ -92,7 +92,8 @@ expects them.
 taskopen).
 - `phone photos` - personal photos synched from android.
 - `phone screenshots` - personal screenshots synced from android.
-- `keys` - contains ssh keys for git remotes (~/.ssh/keys)
+- `ssh_keys` - contains ssh keys for git remotes (~/.ssh/keys)
+- `vimwiki` - contains text files associate with my personal vimwiki.
 
 ## Lxappearance
 
