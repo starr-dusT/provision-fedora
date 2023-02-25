@@ -11,3 +11,10 @@
   shell: >
     hostnamectl set-hostname {{ hostname }}
   become: true
+
+- name: Change sudo settings
+  lineinfile:
+    path: /etc/sudoers
+    regexp: ^Defaults    env_reset
+    line: Defaults    env_reset,timestamp_timeout=60,!tty_tickets
+  become: yes

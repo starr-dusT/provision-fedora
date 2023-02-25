@@ -44,6 +44,12 @@ sudo mount -va
 
 # Show resulting subvolume structure
 sudo btrfs subvolume list /
+
+# Enable and start snapper timeline and cleanup services
+sudo systemctl enable snapper-timeline.timer
+sudo systemctl start snapper-timeline.timer 
+sudo systemctl enable snapper-cleanup.timer
+sudo systemctl start snapper-cleanup.timer
 ```
 
 ## Wireguard Client
@@ -124,3 +130,29 @@ git clone https://github.com/dracula/gnome-terminal
 cd gnome-terminal
 ./install.sh
 ```
+
+## Bluetooth Audio
+
+In addition to the `pipewire-codec-aptx` package being required (installed
+with ansible) you need to set `ControllerMode = bredr` in
+`/etc/bluetooth/main.conf` to get bluetooth to work properly with audio devices.
+
+## Linux-tkg kernel
+
+The [linux-tkg](https://github.com/Frogging-Family/linux-tkg) kernel provides
+a more responsive desktop. Install with the following:
+
+```bash
+git clone https://github.com/Frogging-Family/linux-tkg.git
+cd linux-tkg
+```
+
+Set `CONFIG_EFI_HANDOVER_PROTOCOL` to `y` in 
+`linux-tkg-config/<kernel-version>/config.x86_64`.
+
+```bash
+./install.sh install
+sudo dnf install akmod-nvidia
+```
+
+Reboot into new kernel.
