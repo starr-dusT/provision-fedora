@@ -8,6 +8,7 @@
       - firefox # Mozilla Firefox web browser
       #- nerd-fonts # Iconic font aggregator, collection and patcher
       - gnome-tweaks
+      - evolution
     state: present
   become: true
 

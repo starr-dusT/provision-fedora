@@ -18,6 +18,7 @@
       - pipenv # Python Development Workflow for Humans
       - python3-devel # Python programming language (3.11 series) - development files
       - rubygems
+      - perl
     state: present
   become: true
 
