@@ -20,5 +20,7 @@
       - org.inkscape.Inkscape # Vector Graphics Editor
       - com.github.tchx84.Flatseal # Manage Flatpak permissions
       - com.mattjakeman.ExtensionManager # A utility for browsing and installing GNOME Shell Extensions
+      - org.kde.kdenlive
+      - com.bitwarden.desktop
     state: present
   become: true

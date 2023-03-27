@@ -19,6 +19,7 @@
       - python3-devel # Python programming language (3.11 series) - development files
       - rubygems
       - perl
+      - cloc
     state: present
   become: true
 

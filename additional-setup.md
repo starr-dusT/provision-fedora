@@ -156,3 +156,17 @@ sudo dnf install akmod-nvidia
 ```
 
 Reboot into new kernel.
+
+## Single GPU Passthrough to windows
+
+I use a windows virtual machine with gpu passthrough of the few games that
+won't work on linux, Zwift, and Fusion360. [This](https://github.com/ilayna/Single-GPU-passthrough-amd-nvidia)
+has scripts that make that process relatively easy and [this wiki](https://gitlab.com/risingprismtv/single-gpu-passthrough/-/wikis/home)
+provides good information on setting up the virtual machine in virt-manager.
+The virt-manager setup should usually be avoided by transfering the VM between
+machines. The `patch.rom` required for my GPU is included in my repo.
+
+## Google earth pro
+
+[Google earth](https://www.google.com/earth/versions/) is nice for visualizing
+my hikes and checking out snow levels. Download the RPM and install with yum.
